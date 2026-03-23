@@ -1,3 +1,3 @@
-defaultProject: wost-data-demo
-defaultDataset: dataform_ds
-defaultAssertionDataset: dataform_assertions
+defaultProject: wost-dataform-project-01
+defaultDataset: dataform_ds_ttt
+defaultAssertionDataset: dataform_assertions 
