@@ -9,9 +9,9 @@ const tables = [
       { name: "street_address", type: "STRING", versions: [1, 2] },
       { name: "country_code", type: "STRING", versions: [1, 2] },
       // Mark as deleted: V1 view sees NULL, Raw table drops it entirely
-      { name: "mail2", type: "STRING", versions: [1], deleted: true }, 
-      { name: "mail4", type: "STRING", versions: [2], alias: "primary_email" },
-      { name: "email_address", type: "STRING", versions: [1, 2] }
+//      { name: "mail2", type: "STRING", versions: [1], deleted: true }, 
+//      { name: "mail4", type: "STRING", versions: [2], alias: "primary_email" },
+//      { name: "email_address", type: "STRING", versions: [1, 2] }
     ]
   }
 ];

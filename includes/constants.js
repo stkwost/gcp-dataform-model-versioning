@@ -1,5 +1,5 @@
 // includes/constants.js
-const LOCATION = "EU"; 
+const LOCATION = "US"; 
 const RAW_SCHEMA = "raw_layer";
 const CONSUMPTION_SCHEMA = "consumption"; // The 'Stable' dataset
 const VERSIONED_SCHEMA_PREFIX = "consumption"; // Will create consumption_v1, v2...
