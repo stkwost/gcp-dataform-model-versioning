@@ -1,0 +1,6 @@
+{
+  "name": "wost-data-demo",
+  "dependencies": {
+    "@dataform/core": "3.0.42"
+  }
+}
