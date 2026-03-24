@@ -1,23 +1,16 @@
-// includes/metadata.js
 const tables = [
   {
     tableName: "customers",
     columns: [
-      { name: "customer_id", type: "INT64", versions: [1, 2] },
-      { name: "customer_name_raw", type: "STRING", versions: [1, 2], alias: "customer_name" },
-      { name: "zip_code", type: "STRING", versions: [1, 2] },
-      { name: "street_address", type: "STRING", versions: [1, 2] },
-      { name: "country_code", type: "STRING", versions: [1, 2] },
-      { name: "email_address", type: "STRING", versions: [1], alias: "mail"}      
-      // Mark as deleted: V1 view sees NULL, Raw table drops it entirely
-//      { name: "mail2", type: "STRING", versions: [1], deleted: true }, 
-//      { name: "mail4", type: "STRING", versions: [2], alias: "primary_email" },
-
+      { name: "customer_id", physicalName: "c_id", type: "INT64", since: 1, until: null },
+      { name: "email_address", physicalName: "email", type: "STRING", since: 1, until: 2 },
+      { name: "email_address_v2", physicalName: "email", type: "STRING", since: 3, until: null },      
+      { name: "phone", physicalName: "ph_num_v2", type: "STRING", since: 2, until: null },
     ]
   }
 ];
 
-const versions = [1, 2];
-const currentVersion = 2; 
+const versions = [1, 2, 3];
+const currentVersion = 3;
 
 module.exports = { tables, versions, currentVersion };

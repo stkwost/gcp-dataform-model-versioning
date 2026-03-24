@@ -1,41 +1,30 @@
-const { tables } = require("../includes/metadata");
+/**
+ * RAW LAYER SETUP
+ * This script uses 'operate' to run manual SQL commands in BigQuery.
+ * Unlike 'publish', 'operate' allows us to run 'ALTER TABLE' to add 
+ * new columns without recreating the table and losing data.
+ */
+const { tables, currentVersion } = require("../includes/metadata");
 const { RAW_SCHEMA } = require("../includes/constants");
-const { getRawActionName, getPhysicalColumns } = require("../includes/factory");
 
 tables.forEach((table) => {
-  const actionName = getRawActionName(table.tableName);
+  operate(table.tableName, {
+    tags: ["raw"],          // Run this using: dataform run --tags raw
+    hasOutput: true,        // Tells Dataform this operation creates a table others can use
+    dataset: RAW_SCHEMA     // The BigQuery dataset where the table lives
+  }).queries(ctx => {
+    const project = dataform.projectConfig.defaultDatabase;
+    const fullTable = `\`${project}.${RAW_SCHEMA}.${table.tableName}\``;
+    
+    // Batch all ALTER TABLE commands into one script to avoid BigQuery rate limits.
+    const batchAlters = table.columns
+      .map(c => `ALTER TABLE ${fullTable} ADD COLUMN IF NOT EXISTS ${c.physicalName || c.name} ${c.type}`)
+      .join(";\n");
 
-  publish(actionName, {
-    type: "incremental",
-    schema: RAW_SCHEMA,
-    name: table.tableName,
-    tags: ["raw"]
-  }).preOps(ctx => {
-    // This runs only if the table already exists
-    return table.columns
-      .filter(col => !col.deleted)
-      .map(col => `ALTER TABLE IF EXISTS ${ctx.self()} ADD COLUMN IF NOT EXISTS ${col.name} ${col.type}`);
-  }).query(ctx => {
-    const colList = table.columns
-      .filter(c => !c.deleted)
-      .map(c => `CAST(NULL AS ${c.type}) AS ${c.name}`)
-      .join(",\n    ");
-
-    if (!ctx.incremental()) {
-      /**
-       * FIRST RUN:
-       * Create the empty table structure.
-       * Transfers 0 rows.
-       */
-      return `SELECT ${colList} LIMIT 0`;
-    } else {
-      /**
-       * SUBSEQUENT RUNS:
-       * Dataform requires a query to run, but we want 0 data transfer.
-       * We select from the table itself with a false condition.
-       * Transfers 0 rows.
-       */
-      return `SELECT * FROM ${ctx.self()} WHERE FALSE`;
-    }
+    return [
+      `CREATE SCHEMA IF NOT EXISTS \`${project}.${RAW_SCHEMA}\``,
+      `CREATE TABLE IF NOT EXISTS ${fullTable} (_metadata_version INT64)`,
+      `BEGIN ${batchAlters}; END;` // Executes all column additions in one go.
+    ];
   });
 });

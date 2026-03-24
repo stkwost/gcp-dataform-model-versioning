@@ -1,3 +1,5 @@
 defaultProject: wost-dataform-project-01
-defaultDataset: dataform_ds_ttt
-defaultAssertionDataset: dataform_assertions 
+defaultDataset: dataform_utils
+defaultLocation: US
+vars:
+  env: dev  # Change this to 'prod' in your production release configuration
