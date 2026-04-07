@@ -1,0 +1,23 @@
+config {
+  type: "operations",
+  tags: ["development_only_seed"]
+}
+
+-- Specify both schema and table name to resolve ambiguity
+INSERT INTO ${ref("dev_raw_layer", "customers")} (
+    _metadata_version, 
+    p_id, 
+    p_email, 
+    p_phone
+)
+VALUES
+  (1, 101, 'user1@example.com', '111-222-3333'),
+  (1, 102, 'user2@example.com', '111-222-3334'),
+  (1, 103, 'user3@example.com', '111-222-3335'),
+  (1, 104, 'user4@example.com', '111-222-3336'),
+  (1, 105, 'user5@example.com', '111-222-3337'),
+  (1, 106, 'user6@example.com', '111-222-3338'),
+  (1, 107, 'user7@example.com', '111-222-3339'),
+  (1, 108, 'user8@example.com', '111-222-3340'),
+  (1, 109, 'user9@example.com', '111-222-3341'),
+  (1, 110, 'user10@example.com', '111-222-3342');

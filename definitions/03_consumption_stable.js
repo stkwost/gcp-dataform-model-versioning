@@ -17,7 +17,7 @@ tables.forEach((table) => {
         type: "view",
         schema: CONSUMPTION_SCHEMA, // e.g., 'consumption' or 'dev_consumption'
         name: table.tableName,      // The physical name in BigQuery will be 'customers'
-        tags: ["stable", "prod"]    // Run this using: dataform run --tags stable
+        tags: ["prod","demo"]    // Run this using: dataform run --tags stable
     }).query(ctx => {
         /**
          * VERSION FILTERING:

@@ -16,7 +16,7 @@ versions.forEach((v) => {
             type: "view",
             schema: `${VERSIONED_SCHEMA_PREFIX}_v${v}`, // e.g. consumption_v1
             name: table.tableName,                       // Physical name in BQ remains 'customers'
-            tags: ["versions", `v${v}`]                  // Allows running 'v1' independently
+            tags: ["versions", `v${v}`,"demo"]                  // Allows running 'v1' independently
         }).query(ctx => {
             // Get columns filtered for THIS specific version 'v'
             const cols = getVersionedColumns(table, v);

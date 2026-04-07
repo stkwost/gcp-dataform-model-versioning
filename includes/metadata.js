@@ -2,15 +2,21 @@ const tables = [
   {
     tableName: "customers",
     columns: [
-      { name: "customer_id", physicalName: "c_id", type: "INT64", since: 1, until: null },
-      { name: "email_address", physicalName: "email", type: "STRING", since: 1, until: 2 },
-      { name: "email_address_v2", physicalName: "email", type: "STRING", since: 3, until: null },      
-      { name: "phone", physicalName: "ph_num_v2", type: "STRING", since: 2, until: null },
+
+      { name: "v__id", physicalName: "p_id", type: "INT64", since: 1, until: null },
+
+      { name: "v_email", physicalName: "p_email", type: "STRING", since: 1, until: 2 },
+//      { name: "v_email_V2", physicalName: "p_email", type: "STRING", since: 3, until: null },      
+
+      { name: "v_phone", physicalName: "p_phone", type: "STRING", since: 2, until: null },
+
+//      { name: "v_address_new", physicalName: "p_address", type: "STRING", since: 2, until: 2 },  
+
     ]
   }
 ];
 
 const versions = [1, 2, 3];
-const currentVersion = 3;
+const currentVersion = 2;
 
 module.exports = { tables, versions, currentVersion };

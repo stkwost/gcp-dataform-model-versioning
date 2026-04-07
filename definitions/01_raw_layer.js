@@ -9,7 +9,7 @@ const { RAW_SCHEMA } = require("../includes/constants");
 
 tables.forEach((table) => {
   operate(table.tableName, {
-    tags: ["raw"],          // Run this using: dataform run --tags raw
+    tags: ["raw", "demo"],          // Run this using: dataform run --tags raw
     hasOutput: true,        // Tells Dataform this operation creates a table others can use
     dataset: RAW_SCHEMA     // The BigQuery dataset where the table lives
   }).queries(ctx => {
