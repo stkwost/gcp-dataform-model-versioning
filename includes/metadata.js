@@ -1,3 +1,4 @@
+//This file contains the definitions of the tables and columns
 const tables = [
   {
     tableName: "customers",
