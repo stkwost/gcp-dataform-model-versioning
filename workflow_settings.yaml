@@ -1,4 +1,4 @@
-defaultProject: wost-data-demo
+defaultProject: wost-dataform-project-01
 defaultDataset: dataform_utils
 defaultLocation: US
 vars:
