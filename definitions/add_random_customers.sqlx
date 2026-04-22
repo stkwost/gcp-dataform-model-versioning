@@ -1,3 +1,4 @@
+/*
 config {
   type: "operations",
   tags: ["development_only_seed"]
@@ -21,3 +22,4 @@ VALUES
   (1, 108, 'user8@example.com', '111-222-3340'),
   (1, 109, 'user9@example.com', '111-222-3341'),
   (1, 110, 'user10@example.com', '111-222-3342');
+*/
