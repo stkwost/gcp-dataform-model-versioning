@@ -13,6 +13,14 @@ The system uses a metadata-first approach to manage how data flows from BigQuery
 
 ---
 
+## 💡 Why JavaScript over SQLX?
+
+In Dataform, `.sqlx` files are limited to a **one-to-one mapping** between files and actions (tables/views). You cannot use loops to generate multiple tables in a single `.sqlx` file.
+
+This repository leverages the **Dataform JavaScript API** to implement a **Factory Pattern**. A single loop over metadata in a `.js` file can automatically generate dozens of versioned views. This dramatically reduces maintenance overhead and ensures consistency across versions.
+
+---
+
 ## 🔢 Versioning Logic (`since` / `until`)
 
 Each column defined in the metadata is governed by `since` and `until` tags. The system automatically filters these columns based on the target version being built.
